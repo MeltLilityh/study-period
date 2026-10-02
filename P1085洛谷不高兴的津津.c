@@ -1,29 +1,19 @@
 #include <stdio.h>
 
-/* 连续输入 7 天，每天两个整数：课内时间 class、课外时间 outclass
-   统计出学习时间最长的那一天；如果 7 天都不超过 8 小时，输出 0 */
 int main(void) {
-    int class, outclass;      
-    int wholetime;            
-    int bestday = 0;          
-    int i = 1;                
+    int a, b;              /* 当天两节课的时间 */
+    int bestday = 0;       /* 最不高兴的那一天（1~7），0 表示不会不高兴 */
+    int besttime = 8;      /* 只有超过 8 小时才会不高兴，所以从 8 开始比 */
+    int i;
 
-    while (i <= 7) {
-        scanf("%d %d", &class, &outclass);   
-        wholetime = class + outclass;        
-
-        if (wholetime > bestday) {
-            bestday = wholetime;
+    for (i = 1; i <= 7; i++) {
+        scanf("%d %d", &a, &b);
+        if (a + b > besttime) {      /* 严格大于：时间相同时保留更早的那天 */
+            besttime = a + b;
+            bestday = i;
         }
-
-        i++;                  
     }
 
-    if (bestday <= 8) {
-        printf("0\n");
-    } else {
-        printf("%d\n", bestday);
-    }
-
+    printf("%d\n", bestday);
     return 0;
 }
